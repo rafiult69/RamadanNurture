@@ -81,27 +81,29 @@ export default function Home() {
             <ScrollArea className="h-[400px] rounded-md border p-4">
               {isLoading ? (
                 <div className="flex items-center justify-center h-full">
-                  Loading quotes...
+                  Loading quote...
                 </div>
+              ) : quotes && quotes.length > 0 ? (
+                <Card className="mb-4 overflow-hidden">
+                  <CardContent className="pt-6">
+                    <div className="text-right mb-4">
+                      <span className="text-lg font-arabic text-green-700" style={{ fontFamily: 'Noto Naskh Arabic' }}>
+                        ❝
+                      </span>
+                    </div>
+                    <p className="text-lg mb-2 text-gray-800">{quotes[0].text}</p>
+                    <p className="text-sm text-green-700 font-semibold">{quotes[0].source}</p>
+                    <div className="text-left mt-2">
+                      <span className="text-lg font-arabic text-green-700" style={{ fontFamily: 'Noto Naskh Arabic' }}>
+                        ❞
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
               ) : (
-                quotes?.map((quote: any) => (
-                  <Card key={quote.id} className="mb-4 overflow-hidden">
-                    <CardContent className="pt-6">
-                      <div className="text-right mb-4">
-                        <span className="text-lg font-arabic text-green-700" style={{ fontFamily: 'Noto Naskh Arabic' }}>
-                          ❝
-                        </span>
-                      </div>
-                      <p className="text-lg mb-2 text-gray-800">{quote.text}</p>
-                      <p className="text-sm text-green-700 font-semibold">{quote.source}</p>
-                      <div className="text-left mt-2">
-                        <span className="text-lg font-arabic text-green-700" style={{ fontFamily: 'Noto Naskh Arabic' }}>
-                          ❞
-                        </span>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))
+                <div className="flex items-center justify-center h-full">
+                  No quotes available for this mood.
+                </div>
               )}
             </ScrollArea>
           </Card>

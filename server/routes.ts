@@ -16,8 +16,8 @@ export async function registerRoutes(app: Express) {
       res.status(400).json({ message: "Invalid mood" });
       return;
     }
-    const count = parseInt(req.query.count as string) || 3;
-    const quotes = await storage.getRandomQuotesByMood(mood as any, count);
+    // Always get one quote regardless of count parameter
+    const quotes = await storage.getRandomQuotesByMood(mood as any, 1);
     res.json(quotes);
   });
 
