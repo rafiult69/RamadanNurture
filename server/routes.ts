@@ -22,8 +22,13 @@ export async function registerRoutes(app: Express) {
   });
 
   app.get("/api/hadith/random", (_req, res) => {
-    const hadith = getRandomHadith();
-    res.json(hadith);
+    try {
+      const hadith = getRandomHadith();
+      res.json(hadith);
+    } catch (error) {
+      console.error("Error getting random hadith:", error);
+      res.status(500).json({ error: "Failed to get random hadith" });
+    }
   });
 
   app.get("/api/moods", async (_req, res) => { // Added API endpoint for moods
