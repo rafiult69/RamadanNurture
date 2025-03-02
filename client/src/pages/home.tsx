@@ -12,15 +12,22 @@ import { Moon, Sun, Search } from "lucide-react";
 export default function Home() {
   const [selectedMood, setSelectedMood] = useState<Mood>("peaceful");
   const [searchCity, setSearchCity] = useState("");
+  // Add a key to force refetch when mood is selected
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const { data: quotes, isLoading } = useQuery({
-    queryKey: ["/api/quotes/" + selectedMood, { count: 3 }],
+    queryKey: ["/api/quotes/" + selectedMood, { count: 3 }, refreshKey],
     enabled: !!selectedMood,
   });
 
   const filteredCities = ramadanTimings.filter(timing =>
     timing.city.toLowerCase().includes(searchCity.toLowerCase())
   );
+
+  const handleMoodChange = (mood: Mood) => {
+    setSelectedMood(mood);
+    setRefreshKey(prev => prev + 1); // Increment key to force refetch
+  };
 
   return (
     <div className="min-h-screen bg-[#f8f9fa]">
@@ -46,7 +53,7 @@ export default function Home() {
             <h2 className="text-2xl font-semibold mb-4 text-green-800">How are you feeling?</h2>
             <RadioGroup
               value={selectedMood}
-              onValueChange={(value) => setSelectedMood(value as Mood)}
+              onValueChange={(value) => handleMoodChange(value as Mood)}
               className="grid grid-cols-2 gap-4 mb-6"
             >
               {moods.map((mood) => (
