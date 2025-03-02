@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer } from "http";
 import { storage } from "./storage";
 import { moods } from "@shared/schema";
+import { getRandomHadith } from "./hadith";
 
 export async function registerRoutes(app: Express) {
   app.get("/api/quotes", async (_req, res) => {
@@ -18,6 +19,11 @@ export async function registerRoutes(app: Express) {
     const count = parseInt(req.query.count as string) || 3;
     const quotes = await storage.getRandomQuotesByMood(mood as any, count);
     res.json(quotes);
+  });
+
+  app.get("/api/hadith/random", (_req, res) => {
+    const hadith = getRandomHadith();
+    res.json(hadith);
   });
 
   return createServer(app);

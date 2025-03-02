@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { moods, type Mood } from "@shared/schema";
 import { ramadanTimings } from "@/data/timings";
 import { Moon, Sun, Search } from "lucide-react";
+import { RandomHadith } from "@/components/RandomHadith";
 
 export default function Home() {
   const [selectedMood, setSelectedMood] = useState<Mood>("peaceful");
@@ -54,6 +55,11 @@ export default function Home() {
 
       <main className="container mx-auto px-4 py-8">
         <div className="grid md:grid-cols-2 gap-8">
+          {/* Hadith of the Moment Section */}
+          <div className="mb-8">
+            <RandomHadith />
+          </div>
+
           {/* Mood-based Quotes Section */}
           <Card className="p-6 shadow-lg border-t-4 border-t-green-600">
             <h2 className="text-2xl font-semibold mb-4 text-green-800">How are you feeling?</h2>
