@@ -48,12 +48,45 @@ export default function Home() {
       >
         <div className="absolute inset-0 flex items-center justify-center">
           <h1 className="text-4xl font-bold text-white text-center">
-            Islamic Inspiration for Ramadan
+            Islamic Inspiration & Resources
           </h1>
         </div>
       </div>
 
       <main className="container mx-auto px-4 py-8">
+        {/* Feature Navigation Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <Link href="/prayer-times">
+            <a className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
+              <div className="h-40 bg-cover bg-center" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1585036156171-384164a8c675')` }}></div>
+              <div className="p-6">
+                <h2 className="text-xl font-bold mb-2 text-primary">Prayer Times</h2>
+                <p className="text-gray-600">Find accurate prayer times based on your location.</p>
+              </div>
+            </a>
+          </Link>
+          
+          <Link href="/tasbih">
+            <a className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
+              <div className="h-40 bg-cover bg-center" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1584722065937-3209c63bdabe')` }}></div>
+              <div className="p-6">
+                <h2 className="text-xl font-bold mb-2 text-primary">Digital Tasbih</h2>
+                <p className="text-gray-600">Keep track of your dhikr with this digital counter.</p>
+              </div>
+            </a>
+          </Link>
+          
+          <Link href="/reminders">
+            <a className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
+              <div className="h-40 bg-cover bg-center" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1506784983877-45594efa4cbe')` }}></div>
+              <div className="p-6">
+                <h2 className="text-xl font-bold mb-2 text-primary">Daily Reminders</h2>
+                <p className="text-gray-600">Set reminders for prayers, adhkar, and Quran reading.</p>
+              </div>
+            </a>
+          </Link>
+        </div>
+        
         <div className="grid md:grid-cols-2 gap-8">
           {/* Hadith of the Moment Section */}
           <div className="mb-8">

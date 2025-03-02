@@ -1,4 +1,3 @@
-
 import { quotes, type Quote, type InsertQuote, type Mood } from "@shared/schema";
 
 export interface IStorage {
@@ -429,33 +428,33 @@ export class MemStorage implements IStorage {
 
   async getRandomQuotesByMood(mood: Mood, count: number): Promise<Quote[]> {
     const moodQuotes = await this.getQuotesByMood(mood);
-    
+
     // If we don't have enough quotes, just return what we have
     if (moodQuotes.length <= count) {
       return moodQuotes;
     }
-    
+
     // Get the set of recently served quotes for this mood
     const recentlyServed = this.lastServedQuotes.get(mood) || new Set();
-    
+
     // Filter out recently served quotes if possible
     let availableQuotes = moodQuotes.filter(quote => !recentlyServed.has(quote.id));
-    
+
     // If we filtered out too many, just use all quotes
     if (availableQuotes.length < count) {
       availableQuotes = moodQuotes;
       // Reset the recently served set
       recentlyServed.clear();
     }
-    
+
     // Shuffle available quotes
     const shuffled = [...availableQuotes].sort(() => Math.random() - 0.5);
     const selectedQuotes = shuffled.slice(0, count);
-    
+
     // Update recently served quotes
     selectedQuotes.forEach(quote => recentlyServed.add(quote.id));
     this.lastServedQuotes.set(mood, recentlyServed);
-    
+
     return selectedQuotes;
   }
 
@@ -471,3 +470,11 @@ export class MemStorage implements IStorage {
 import { moods } from "@shared/schema";
 
 export const storage = new MemStorage();
+
+export function getQuotesByMood(mood: string) {
+  return allQuotes.filter((quote) => quote.mood === mood);
+}
+
+export function getAllMoods() {
+  return moods;
+}

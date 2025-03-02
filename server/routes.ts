@@ -26,5 +26,13 @@ export async function registerRoutes(app: Express) {
     res.json(hadith);
   });
 
+  app.get("/api/moods", async (_req, res) => { // Added API endpoint for moods
+    const allMoods = await storage.getAllMoods(); // Assuming getAllMoods exists in storage
+    res.json(allMoods);
+  });
+
+  // Add other API endpoints as needed based on the user's request (Prayer Times, Tasbih Counter, Daily Reminders)
+  // This would require significant additional code and data structures beyond the scope of this example.
+
   return createServer(app);
 }
