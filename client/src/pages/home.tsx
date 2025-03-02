@@ -12,7 +12,6 @@ import { Moon, Sun, Search } from "lucide-react";
 export default function Home() {
   const [selectedMood, setSelectedMood] = useState<Mood>("peaceful");
   const [searchCity, setSearchCity] = useState("");
-  // Add a key to force refetch when mood is selected
   const [refreshKey, setRefreshKey] = useState(0);
 
   const { data: quotes, isLoading } = useQuery({
@@ -26,11 +25,18 @@ export default function Home() {
 
   const handleMoodChange = (mood: Mood) => {
     setSelectedMood(mood);
-    setRefreshKey(prev => prev + 1); // Increment key to force refetch
+    setRefreshKey(prev => prev + 1);
   };
 
   return (
     <div className="min-h-screen bg-[#f8f9fa]">
+      {/* Top Arabic Calligraphy */}
+      <div className="text-center py-4 bg-green-50">
+        <p className="text-2xl font-arabic text-green-800" style={{ fontFamily: 'Noto Naskh Arabic' }}>
+          بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+        </p>
+      </div>
+
       <div 
         className="h-64 bg-cover bg-center relative"
         style={{
@@ -49,7 +55,7 @@ export default function Home() {
       <main className="container mx-auto px-4 py-8">
         <div className="grid md:grid-cols-2 gap-8">
           {/* Mood-based Quotes Section */}
-          <Card className="p-6">
+          <Card className="p-6 shadow-lg border-t-4 border-t-green-600">
             <h2 className="text-2xl font-semibold mb-4 text-green-800">How are you feeling?</h2>
             <RadioGroup
               value={selectedMood}
@@ -73,10 +79,20 @@ export default function Home() {
                 </div>
               ) : (
                 quotes?.map((quote: any) => (
-                  <Card key={quote.id} className="mb-4">
+                  <Card key={quote.id} className="mb-4 overflow-hidden">
                     <CardContent className="pt-6">
-                      <p className="text-lg mb-2">{quote.text}</p>
-                      <p className="text-sm text-green-700">{quote.source}</p>
+                      <div className="text-right mb-4">
+                        <span className="text-lg font-arabic text-green-700" style={{ fontFamily: 'Noto Naskh Arabic' }}>
+                          ❝
+                        </span>
+                      </div>
+                      <p className="text-lg mb-2 text-gray-800">{quote.text}</p>
+                      <p className="text-sm text-green-700 font-semibold">{quote.source}</p>
+                      <div className="text-left mt-2">
+                        <span className="text-lg font-arabic text-green-700" style={{ fontFamily: 'Noto Naskh Arabic' }}>
+                          ❞
+                        </span>
+                      </div>
                     </CardContent>
                   </Card>
                 ))
@@ -85,7 +101,7 @@ export default function Home() {
           </Card>
 
           {/* Ramadan Timings Section */}
-          <Card className="p-6">
+          <Card className="p-6 shadow-lg border-t-4 border-t-green-600">
             <h2 className="text-2xl font-semibold mb-4 text-green-800">
               Ramadan Timings
             </h2>
@@ -102,16 +118,16 @@ export default function Home() {
             <ScrollArea className="h-[400px]">
               <div className="space-y-4">
                 {filteredCities.map((timing) => (
-                  <Card key={timing.city}>
+                  <Card key={timing.city} className="hover:shadow-md transition-shadow">
                     <CardContent className="pt-6">
-                      <h3 className="font-semibold mb-2">{timing.city}</h3>
+                      <h3 className="font-semibold mb-2 text-green-700">{timing.city}</h3>
                       <div className="grid grid-cols-2 gap-4">
                         <div className="flex items-center gap-2">
-                          <Moon className="h-4 w-4" />
+                          <Moon className="h-4 w-4 text-green-600" />
                           <span>Sehri: {timing.sehri}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <Sun className="h-4 w-4" />
+                          <Sun className="h-4 w-4 text-green-600" />
                           <span>Iftar: {timing.iftar}</span>
                         </div>
                       </div>
@@ -123,6 +139,13 @@ export default function Home() {
           </Card>
         </div>
       </main>
+
+      {/* Bottom Arabic Calligraphy */}
+      <div className="text-center py-4 bg-green-50 mt-8">
+        <p className="text-xl font-arabic text-green-800" style={{ fontFamily: 'Noto Naskh Arabic' }}>
+          رَمَضَانَ كَرِيم
+        </p>
+      </div>
     </div>
   );
 }
