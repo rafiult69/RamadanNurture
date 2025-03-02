@@ -27,6 +27,11 @@ export const moods = [
   "hopeful",
   "seeking_guidance",
   "peaceful",
+  "broken",
+  "hopeless",
+  "failed",
+  "want_to_help",
+  "overthinking",
 ] as const;
 
 export type Mood = typeof moods[number];
