@@ -4,27 +4,32 @@ import { Card, CardContent } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Input } from "@/components/ui/input";
 import { moods, type Mood } from "@shared/schema";
 import { ramadanTimings } from "@/data/timings";
-import { Moon, Sun, Clock } from "lucide-react";
+import { Moon, Sun, Search } from "lucide-react";
 
 export default function Home() {
   const [selectedMood, setSelectedMood] = useState<Mood>("peaceful");
+  const [searchCity, setSearchCity] = useState("");
 
   const { data: quotes, isLoading } = useQuery({
-    queryKey: ["/api/quotes", selectedMood],
+    queryKey: ["/api/quotes/" + selectedMood, { count: 3 }],
     enabled: !!selectedMood,
   });
 
+  const filteredCities = ramadanTimings.filter(timing =>
+    timing.city.toLowerCase().includes(searchCity.toLowerCase())
+  );
+
   return (
     <div className="min-h-screen bg-[#f8f9fa]">
-      {/* Hero Section with Islamic Pattern */}
       <div 
         className="h-64 bg-cover bg-center relative"
         style={{
           backgroundImage: `url('https://images.unsplash.com/photo-1524945054674-362051610bd0')`,
           backgroundColor: 'rgba(0, 100, 0, 0.8)',
-          backgroundBlend: 'overlay'
+          backgroundBlendMode: 'overlay'
         }}
       >
         <div className="absolute inset-0 flex items-center justify-center">
@@ -60,7 +65,7 @@ export default function Home() {
                   Loading quotes...
                 </div>
               ) : (
-                quotes?.map((quote) => (
+                quotes?.map((quote: any) => (
                   <Card key={quote.id} className="mb-4">
                     <CardContent className="pt-6">
                       <p className="text-lg mb-2">{quote.text}</p>
@@ -77,25 +82,37 @@ export default function Home() {
             <h2 className="text-2xl font-semibold mb-4 text-green-800">
               Ramadan Timings
             </h2>
-            <div className="space-y-4">
-              {ramadanTimings.map((timing) => (
-                <Card key={timing.city}>
-                  <CardContent className="pt-6">
-                    <h3 className="font-semibold mb-2">{timing.city}</h3>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="flex items-center gap-2">
-                        <Moon className="h-4 w-4" />
-                        <span>Sehri: {timing.sehri}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Sun className="h-4 w-4" />
-                        <span>Iftar: {timing.iftar}</span>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+            <div className="mb-4 relative">
+              <Input
+                type="text"
+                placeholder="Search city..."
+                value={searchCity}
+                onChange={(e) => setSearchCity(e.target.value)}
+                className="pl-10"
+              />
+              <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
             </div>
+            <ScrollArea className="h-[400px]">
+              <div className="space-y-4">
+                {filteredCities.map((timing) => (
+                  <Card key={timing.city}>
+                    <CardContent className="pt-6">
+                      <h3 className="font-semibold mb-2">{timing.city}</h3>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="flex items-center gap-2">
+                          <Moon className="h-4 w-4" />
+                          <span>Sehri: {timing.sehri}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Sun className="h-4 w-4" />
+                          <span>Iftar: {timing.iftar}</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </ScrollArea>
           </Card>
         </div>
       </main>
