@@ -36,6 +36,48 @@ export class MemStorage implements IStorage {
         source: "Quran 3:139",
         mood: "sad",
         type: "quran"
+      },
+      {
+        text: "And if you should count the favors of Allah, you could not enumerate them",
+        source: "Quran 14:34",
+        mood: "grateful",
+        type: "quran"
+      },
+      {
+        text: "And He found you lost and guided [you]",
+        source: "Quran 93:7",
+        mood: "grateful",
+        type: "quran"
+      },
+      {
+        text: "And whoever is grateful - his gratitude is only for [the benefit of] himself",
+        source: "Quran 31:12",
+        mood: "grateful",
+        type: "quran"
+      },
+      {
+        text: "Those who believe and whose hearts find rest in the remembrance of Allah, Verily, in the remembrance of Allah do hearts find rest",
+        source: "Quran 13:28",
+        mood: "peaceful",
+        type: "quran"
+      },
+      {
+        text: "Allah is with those who have patience",
+        source: "Quran 2:153",
+        mood: "peaceful",
+        type: "quran"
+      },
+      {
+        text: "O you who believe, seek help through patience and prayer. Indeed, Allah is with the patient",
+        source: "Quran 2:153",
+        mood: "anxious",
+        type: "quran"
+      },
+      {
+        text: "My Lord, increase me in knowledge",
+        source: "Quran 20:114",
+        mood: "seeking_guidance",
+        type: "quran"
       }
     ];
 
